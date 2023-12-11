@@ -1,10 +1,12 @@
 
 const app = require('./server.js') //importa
+const connection = require('./database.js')
 
-const { connection } = require('mongoose');
+require('dotenv').config()
 
+//const { connection } = require('mongoose');
 
-// connection()
+connection()
 
 //ejecutar en el puerto 3000
 app.listen(app.get('port'),()=>{
