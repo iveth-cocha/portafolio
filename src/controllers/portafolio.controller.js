@@ -5,6 +5,8 @@ const renderAllPortafolios = async(req,res)=>{
     //res.send('Listar todos los portafolios')
     const portfolios= await Portfolio.find().lean()
     res.render("portafolio/allPortfolios",{portfolios})
+    /*a forma json
+    res.json({portfolios})*/
 }
 //metodo para listar el detalle de un portafolio
 const renderPortafolio = (req,res)=>{
