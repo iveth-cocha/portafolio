@@ -10,6 +10,8 @@ const { engine }  = require('express-handlebars')
 
 const app = express()
 
+const methodOverride = require('method-override');
+
 
 
 //configuracion 
@@ -31,6 +33,8 @@ app.set('view engine','.hbs')
 //servidor trabaja con formularios
 app.use(express.urlencoded({extended:false}))
 
+app.use(methodOverride('_method'))
+
 //variables globales
 
 //rutas
@@ -40,6 +44,10 @@ app.use(express.urlencoded({extended:false}))
 // })
 
 app.use(require('./routers/index.routes'))
+
+
+app.use(require('./routers/portafolio.routes'))
+
 
 app.get('/',(req,res)=>{
     res.render('index')
