@@ -24,3 +24,5 @@ router.put('/portafolio/edit/:id', updatePortafolio)
 router.delete('/portafolio/delete/:id', deletePortafolio)
 
 module.exports = router
+
+//verbos para cada cosa

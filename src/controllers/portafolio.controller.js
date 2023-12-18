@@ -27,7 +27,8 @@ const createNewPortafolio =async (req,res)=>{
     //guardo en la base
     await newPortfolio.save()
     //muestro resultado
-    res.json({newPortfolio})
+    //res.json({newPortfolio})
+     res.redirect('/portafolios')
 }
 
 // const createNewPortafolio = (req,res)=>{
@@ -38,20 +39,34 @@ const createNewPortafolio =async (req,res)=>{
 // }
 
 //editar
-const renderEditPortafolioForm = (req,res)=>{
-    res.send('Formulario para editar un portafolio')
+// const renderEditPortafolioForm = (req,res)=>{
+//     res.send('Formulario para editar un portafolio')
+// }
+
+const renderEditPortafolioForm =async(req,res)=>{
+    const portfolio = await Portfolio.findById(req.params.id).lean()
+    res.render('portafolio/editPortfolio',{portfolio})
 }
 
 
 
 //actualizar en la base de datos
-const updatePortafolio = (req,res)=>{
-    res.send('Editar un portafolio')
+// const updatePortafolio = (req,res)=>{
+//     res.send('Editar un portafolio')
+// }
+const updatePortafolio = async(req,res)=>{
+    const {title,category,description}= req.body
+    await Portfolio.findByIdAndUpdate(req.params.id,{title,category,description})
+    res.redirect('/portafolios')
 }
 
 //eliminar datos
-const deletePortafolio = (req,res)=>{
-    res.send('Eliminar un nuevo portafolio')
+// const deletePortafolio = (req,res)=>{
+//     res.send('Eliminar un nuevo portafolio')
+// }
+const deletePortafolio = async(req,res)=>{
+    await Portfolio.findByIdAndDelete(req.params.id)
+    res.redirect('/portafolios')
 }
 
 

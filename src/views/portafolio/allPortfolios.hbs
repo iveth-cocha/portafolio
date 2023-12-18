@@ -35,9 +35,13 @@
                                     <button class="btn btn-warning btn-sm">Update</button>
                                     </a>
                                     <form action="/portafolio/delete/{{_id}}?_method=DELETE" method="POST" class="d-inline">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                    {{!-- <form action="/portafolio/delete/{{_id}}?_method=DELETE" method="POST" class="d-inline">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button class="btn btn-danger btn-sm">Delete</button>
-                                    </form>
+                                    </form> --}}
                                 </div>
                             </div>
                         </div>

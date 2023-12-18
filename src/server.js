@@ -6,11 +6,16 @@ const path =require('path')
 
 const { engine }  = require('express-handlebars')
 
+const passport = require('passport');
+const session = require('express-session');
+
+
 //inicializacion
 
 const app = express()
 
 const methodOverride = require('method-override');
+require('./config/passport')
 
 
 
@@ -35,6 +40,14 @@ app.use(express.urlencoded({extended:false}))
 
 app.use(methodOverride('_method'))
 
+app.use(session({ 
+    secret: 'secret',
+    resave:true,
+    saveUninitialized:true
+}));
+app.use(passport.initialize())
+app.use(passport.session())
+
 //variables globales
 
 //rutas
@@ -47,6 +60,9 @@ app.use(require('./routers/index.routes'))
 
 
 app.use(require('./routers/portafolio.routes'))
+
+//rutas de usuario
+app.use(require('./routers/user.routes'))
 
 
 app.get('/',(req,res)=>{
