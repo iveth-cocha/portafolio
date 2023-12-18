@@ -1,5 +1,5 @@
 
-//importa
+//--------------------------importa
 const express = require('express')
 
 const path =require('path')
@@ -10,7 +10,7 @@ const passport = require('passport');
 const session = require('express-session');
 
 
-//inicializacion
+//----------------------------inicializacion
 
 const app = express()
 
@@ -19,7 +19,7 @@ require('./config/passport')
 
 
 
-//configuracion 
+//--------------------------------------configuracion 
 
 app.set('port',process.env.port||3000)//por si no lee el puerto especifico
 
@@ -34,7 +34,7 @@ app.engine('.hbs',engine({
 app.set('view engine','.hbs')
 
 
-//middlewares
+//-------------------------middlewares
 //servidor trabaja con formularios
 app.use(express.urlencoded({extended:false}))
 
@@ -48,9 +48,14 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-//variables globales
+//------------------------------variables globales
 
-//rutas
+app.use((req,res,next)=>{
+    res.locals.user = req.user?.name || null
+    next()
+})
+
+//----------------------------rutas
 //mpo es optimo crear rutas de esta format, revisar archivo de rutas
 // app.get('/',(req,res)=>{
 //     res.send("server on")

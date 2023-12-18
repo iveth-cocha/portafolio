@@ -1,12 +1,17 @@
 
 const Portfolio = require('../models/Portfolio')
 //metodo para listar los portafolios
+// const renderAllPortafolios = async(req,res)=>{
+//     //res.send('Listar todos los portafolios')
+//     const portfolios= await Portfolio.find().lean()
+//     res.render("portafolio/allPortfolios",{portfolios})
+//     /*a forma json
+//     res.json({portfolios})*/
+// }
+
 const renderAllPortafolios = async(req,res)=>{
-    //res.send('Listar todos los portafolios')
-    const portfolios= await Portfolio.find().lean()
+    const portfolios = await Portfolio.find({user:req.user._id}).lean()
     res.render("portafolio/allPortfolios",{portfolios})
-    /*a forma json
-    res.json({portfolios})*/
 }
 //metodo para listar el detalle de un portafolio
 const renderPortafolio = (req,res)=>{
@@ -19,16 +24,25 @@ const renderPortafolioForm = (req,res)=>{
 }
 
 //metodo para guardadr en la base de datos lo capturado en el form
+// const createNewPortafolio =async (req,res)=>{
+//     //sestructurar
+//     const {title, category,description} = req.body
+//     //nueva intancia
+//     const newPortfolio = new Portfolio({title,category,description})
+//     //guardo en la base
+//     await newPortfolio.save()
+//     //muestro resultado
+//     //res.json({newPortfolio})
+//      res.redirect('/portafolios')
+// }
+
 const createNewPortafolio =async (req,res)=>{
-    //sestructurar
+
     const {title, category,description} = req.body
-    //nueva intancia
     const newPortfolio = new Portfolio({title,category,description})
-    //guardo en la base
+    newPortfolio.user = req.user._id
     await newPortfolio.save()
-    //muestro resultado
-    //res.json({newPortfolio})
-     res.redirect('/portafolios')
+    res.redirect('/portafolios')
 }
 
 // const createNewPortafolio = (req,res)=>{
@@ -54,11 +68,19 @@ const renderEditPortafolioForm =async(req,res)=>{
 // const updatePortafolio = (req,res)=>{
 //     res.send('Editar un portafolio')
 // }
+// const updatePortafolio = async(req,res)=>{
+//     const {title,category,description}= req.body
+//     await Portfolio.findByIdAndUpdate(req.params.id,{title,category,description})
+//     res.redirect('/portafolios')
+// }
 const updatePortafolio = async(req,res)=>{
+    const portfolio = await Portfolio.findById(req.params.id).lean()
+    if(!(portfolio.user.toString() !== req.user._id.toString())) return res.redirect('/portafolios')
     const {title,category,description}= req.body
     await Portfolio.findByIdAndUpdate(req.params.id,{title,category,description})
     res.redirect('/portafolios')
 }
+
 
 //eliminar datos
 // const deletePortafolio = (req,res)=>{
