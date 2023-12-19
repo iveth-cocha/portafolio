@@ -1,5 +1,5 @@
 
-const Portfolio = require('../models/Portfolio')
+
 //metodo para listar los portafolios
 // const renderAllPortafolios = async(req,res)=>{
 //     //res.send('Listar todos los portafolios')
@@ -8,11 +8,13 @@ const Portfolio = require('../models/Portfolio')
 //     /*a forma json
 //     res.json({portfolios})*/
 // }
+const Portfolio = require('../models/portfolio')
 
 const renderAllPortafolios = async(req,res)=>{
     const portfolios = await Portfolio.find({user:req.user._id}).lean()
     res.render("portafolio/allPortfolios",{portfolios})
 }
+
 //metodo para listar el detalle de un portafolio
 const renderPortafolio = (req,res)=>{
     res.send('Mostrar el detalle de un portafolio')
@@ -73,6 +75,7 @@ const renderEditPortafolioForm =async(req,res)=>{
 //     await Portfolio.findByIdAndUpdate(req.params.id,{title,category,description})
 //     res.redirect('/portafolios')
 // }
+
 const updatePortafolio = async(req,res)=>{
     const portfolio = await Portfolio.findById(req.params.id).lean()
     if(!(portfolio.user.toString() !== req.user._id.toString())) return res.redirect('/portafolios')
