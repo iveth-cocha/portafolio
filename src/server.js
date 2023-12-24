@@ -8,6 +8,9 @@ const { engine }  = require('express-handlebars')
 
 const passport = require('passport');
 const session = require('express-session');
+//imagenes
+
+const fileUpload = require('express-fileupload')
 
 
 //----------------------------inicializacion
@@ -33,6 +36,11 @@ app.engine('.hbs',engine({
 }))
 app.set('view engine','.hbs')
 
+
+app.use(fileUpload({
+    useTempFiles : true,
+    tempFileDir : './uploads'
+}));
 
 //-------------------------middlewares
 //servidor trabaja con formularios
