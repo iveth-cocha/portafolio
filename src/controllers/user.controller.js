@@ -115,3 +115,4 @@ module.exports={
     logoutUser,
     confirmEmail
 }
+

@@ -1,4 +1,4 @@
-const Portfolio = require('../models/portfolio')
+const Portfolio = require('../models/Portfolio')
 //importar imagenes
 //const { uploadImage } = require('../config/cloudinary')
 //elimino imagenes locales

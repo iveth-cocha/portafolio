@@ -4,7 +4,7 @@ const {Router} = require('express')
 
 
 //{tambien llamo}
-const {renderIndex,renderAbout} = require('../controllers/index.controllers.js')
+const {renderIndex} = require('../controllers/index.controllers.js')
 
 
 //instancio
@@ -22,7 +22,8 @@ const router = Router()
 
 
 router.get('/',renderIndex)
-router.get('/login',renderAbout)
+/*ya no lo uso
+router.get('/login',renderAbout)*/
 
 // router.get('/contactos',renderContact )
 

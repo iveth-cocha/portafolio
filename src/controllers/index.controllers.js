@@ -1,11 +1,10 @@
 
-const renderIndex = (req,res)=>{
-    res.render('index')
-}
 
-const renderAbout = (req,res)=>{
+
+/*const renderAbout = (req,res)=>{
     res.render('login')
-}
+}*/
+
 
 
 
@@ -14,8 +13,19 @@ const renderAbout = (req,res)=>{
 //     res.render('contact')
 // }
 
+
+const Portfolio = require('../models/Portfolio')
+
+const renderIndex = async(req,res)=>{
+
+
+    const portfolios = await Portfolio.find().lean()
+    
+    res.render('index',{portfolios})
+}
+
 module.exports ={
-    renderIndex, 
-    renderAbout
+    renderIndex
+    //renderAbout
     //renderContact
 }
